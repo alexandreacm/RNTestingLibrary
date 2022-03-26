@@ -2,7 +2,7 @@ module.exports = {
   env: {
     es2021: true
   },
-  extends: ['airbnb', 'prettier', 'prettier/react'],
+  extends: ['airbnb', 'prettier', 'prettier/react','@react-native-community'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true
