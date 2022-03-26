@@ -18,13 +18,12 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "jest --passWithNoTests"
+      "pre-push": "jest"
     }
   },
   "lint-staged": {
     "./src/*.{js,jsx,}": [
       "eslint --fix",
-      "git add",
       "prettier --write"
     ]
   },
