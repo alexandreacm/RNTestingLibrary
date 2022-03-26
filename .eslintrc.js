@@ -1,8 +1,15 @@
+// .eslintrc.js
 module.exports = {
   env: {
-    es2021: true
+    es6: true
   },
-  extends: ['airbnb', 'prettier', 'prettier/react','@react-native-community'],
+  extends: ['airbnb', 'prettier', 'prettier/react'],
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly',
+    __DEV__: 'readonly'
+  },
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaFeatures: {
       jsx: true
@@ -12,6 +19,10 @@ module.exports = {
   },
   plugins: ['react', 'prettier'],
   rules: {
-    'react/jsx-filename-extension': ['warn', { extensions: ['.jsx', '.js'] }]
+    'prettier/prettier': 'error',
+    'react/jsx-filename-extension': ['warn', { extensions: ['.jsx', '.js'] }],
+    'import/prefer-default-export': 'off',
+    'no-param-reassign': 'off',
+    'no-console': ['error', { allow: ['tron'] }]
   }
 };

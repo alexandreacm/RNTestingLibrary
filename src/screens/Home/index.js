@@ -20,8 +20,8 @@ export default function Home() {
       ...list,
       {
         id: Math.floor(Math.random() * 100),
-        text: newText,
-      },
+        text: newText
+      }
     ]);
     setError(false);
     setNewText('');
@@ -49,9 +49,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: Platform.OS === 'ios' ? 60 : 0,
-    margin: 20,
+    margin: 20
   },
   viewList: {
-    marginBottom: 10,
-  },
+    marginBottom: 10
+  }
 });
