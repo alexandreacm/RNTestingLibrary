@@ -8,7 +8,10 @@
     "start": "react-native start",
     "test": "jest",
     "test -u": "jest -u",
-    "test -watch": "jest --watchAll",
+    "test -watch-all": "jest --watchAll",
+    "test -watch": "jest --watch",
+    "test -report": "jest --collect-coverage",
+    "test -collect": "jest --collectCoverage",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -22,6 +25,7 @@
     "@testing-library/react-native": "^9.0.0",
     "@types/jest": "^27.4.1",
     "babel-jest": "^26.6.3",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "7.14.0",
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.66.0",
@@ -35,5 +39,10 @@
       "<rootDir>/android",
       "<rootDir>/node_modules"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
