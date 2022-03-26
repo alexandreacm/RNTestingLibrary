@@ -3,10 +3,10 @@ import { StyleSheet, View, Platform } from 'react-native';
 
 import AddList from '../../components/AddList';
 import ItemsList from '../../components/ItemsList';
-import Error from '../../components/Error';
+import Error from '../../components/Error'
 
 export default function Home() {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState([])
   const [newText, setNewText] = useState(null);
   const [error, setError] = useState(false);
 
