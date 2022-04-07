@@ -28,7 +28,7 @@ describe('Should render all tests in App', () => {
     expect(createdItem).not.toBeNull();
   });
 
-  test('Should Create item through', () => {
+  test('Should Create item through get button by testID', () => {
     const { getByText, getByTestId, getByPlaceholderText } = render(<App />);
 
     const input = getByPlaceholderText('Write something');
