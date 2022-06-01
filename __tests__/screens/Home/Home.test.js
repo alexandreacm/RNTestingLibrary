@@ -1,4 +1,3 @@
-import 'react-native';
 import React from 'react';
 
 import App from '../../../App';
@@ -7,10 +6,10 @@ import renderer from 'react-test-renderer';
 import { render, fireEvent } from '@testing-library/react-native';
 
 describe('Should render all tests in App', () => {
-  const tree = renderer.create(<App />);
+  const tree = renderer.create(<App />).toJSON();
 
   test('Should create a snapshot test', () => {
-    expect(tree.toJSON()).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 
   test('Should Create item', () => {
@@ -28,6 +27,21 @@ describe('Should render all tests in App', () => {
     expect(createdItem).not.toBeNull();
   });
 
+  test('Should Create item and test by toBe(null)', () => {
+    const { getByText, getByPlaceholderText } = render(<App />);
+
+    const input = getByPlaceholderText('Write something');
+    const button = getByText('+');
+
+    const createdItemText = 'first todo';
+
+    fireEvent.changeText(input, createdItemText);
+    fireEvent.press(button);
+
+    const createdItem = getByText(createdItemText);
+    expect(createdItem).not.toBe(null);
+  });
+
   test('Should Create item through get button by testID', () => {
     const { getByText, getByTestId, getByPlaceholderText } = render(<App />);
 
@@ -41,6 +55,7 @@ describe('Should render all tests in App', () => {
 
     const createdItem = getByText(createdItemText);
     expect(createdItem).not.toBeNull();
+    //expect(createdItem).not.toBe(null);
   });
 
   test('Should create multiple items', () => {
@@ -83,6 +98,7 @@ describe('Should render all tests in App', () => {
     const deleteItem = queryByText(createdItemText);
 
     expect(deleteItem).toBeNull();
+    //expect(deleteItem).toBe(null);
   });
 
   test('Should show an error when trying to create an item without text', () => {
@@ -104,12 +120,14 @@ describe('Should render all tests in App', () => {
     const button = getByTestId('btnTodo');
 
     const createdItem = 'first todo';
-    const createdItemErrorMessage = 'Please insert a valid text';
 
     fireEvent.changeText(input, createdItem);
     fireEvent.press(button);
 
-    //expect(queryByText(createdItemErrorMessage)).toBeNull();
-    expect(queryByText(createdItemErrorMessage)).toBe(null);
+    const createdItemErrorMessage = 'Please insert a valid text';
+    const errorMessage = queryByText(createdItemErrorMessage);
+
+    expect(errorMessage).toBeNull();
+    //expect(queryByText(createdItemErrorMessage)).toBe(null);
   });
 });
