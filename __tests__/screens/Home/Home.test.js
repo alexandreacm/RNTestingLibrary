@@ -1,6 +1,6 @@
 import React from 'react';
-
 import App from '../../../App';
+import Home from '../../../src/screens/Home';
 
 import renderer from 'react-test-renderer';
 import { render, fireEvent } from '@testing-library/react-native';
@@ -8,11 +8,11 @@ import { render, fireEvent } from '@testing-library/react-native';
 describe('Should render all tests in App', () => {
   const tree = renderer.create(<App />).toJSON();
 
-  test('Should create a snapshot test', () => {
+  test('Should run snapshot test', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  test('Should Create item', () => {
+  test('Should Create an item', () => {
     const { getByText, getByPlaceholderText } = render(<App />);
 
     const input = getByPlaceholderText('Write something');
@@ -24,25 +24,11 @@ describe('Should render all tests in App', () => {
     fireEvent.press(button);
 
     const createdItem = getByText(createdItemText);
-    expect(createdItem).not.toBeNull();
-  });
-
-  test('Should Create item and test by toBe(null)', () => {
-    const { getByText, getByPlaceholderText } = render(<App />);
-
-    const input = getByPlaceholderText('Write something');
-    const button = getByText('+');
-
-    const createdItemText = 'first todo';
-
-    fireEvent.changeText(input, createdItemText);
-    fireEvent.press(button);
-
-    const createdItem = getByText(createdItemText);
+    //expect(createdItem).not.toBeNull();
     expect(createdItem).not.toBe(null);
   });
 
-  test('Should Create item through get button by testID', () => {
+  test('Should Create an item through getByTestID', () => {
     const { getByText, getByTestId, getByPlaceholderText } = render(<App />);
 
     const input = getByPlaceholderText('Write something');
@@ -54,8 +40,8 @@ describe('Should render all tests in App', () => {
     fireEvent.press(button);
 
     const createdItem = getByText(createdItemText);
-    expect(createdItem).not.toBeNull();
     //expect(createdItem).not.toBe(null);
+    expect(createdItem).not.toBeNull();
   });
 
   test('Should create multiple items', () => {
@@ -105,9 +91,9 @@ describe('Should render all tests in App', () => {
     const { getByText, getByTestId } = render(<App />);
 
     const button = getByTestId('btnTodo');
-    const createdItemText = 'Please insert a valid text';
-
     fireEvent.press(button);
+
+    const createdItemText = 'Please insert a valid text';
     const errorMessage = getByText(createdItemText);
 
     expect(errorMessage).not.toBeNull();
@@ -116,15 +102,17 @@ describe('Should render all tests in App', () => {
   test('Should remove the error message after creating a valid item', () => {
     const { queryByText, getByTestId, getByPlaceholderText } = render(<App />);
 
+    const createdItem = 'first todo';
+    const createdItemErrorMessage = 'Please insert a valid text';
+
     const input = getByPlaceholderText('Write something');
     const button = getByTestId('btnTodo');
 
-    const createdItem = 'first todo';
+    fireEvent.press(button);
 
     fireEvent.changeText(input, createdItem);
     fireEvent.press(button);
 
-    const createdItemErrorMessage = 'Please insert a valid text';
     const errorMessage = queryByText(createdItemErrorMessage);
 
     expect(errorMessage).toBeNull();
